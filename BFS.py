@@ -11,24 +11,33 @@ def BFS(s):
         path[i] = -1
     
     q = Queue()
-    visited[s] = True
     q.put(s)
-    
+    visited[s] = True
     while not q.empty():
         u = q.get()
         for v in graph[u]:
             if not visited[v]:
-                q.put(v)
                 visited[v] = True
                 path[v] = u
+                q.put(v)
 
+def findPath(s, f):
+    if path[f] == -1:
+        print('No path')
+    
+    while True:
+        print(f)
+        f = path[f]
+        if s == f:
+            print(f)
+            break
 V, E = map(int, input().split())
 for i in range(E):
     u, v = map(int, input().split())
     graph[u].append(v)
     graph[v].append(u)
-   
+    
 BFS(0) 
-
+findPath(0, 5)
 print(path)
 print(graph)
