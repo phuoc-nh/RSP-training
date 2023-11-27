@@ -13,12 +13,15 @@ def BFS(s):
     q = Queue()
     q.put(s)
     visited[s] = True
+    # Set initial color
+    
     while not q.empty():
         u = q.get()
         for v in graph[u]:
             if not visited[v]:
                 visited[v] = True
                 path[v] = u
+                # Toggle child's color here
                 q.put(v)
 
 def findPath(s, f):
