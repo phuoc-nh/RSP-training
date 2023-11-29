@@ -65,13 +65,66 @@ def insertNode(root, value):
         else:
             q.put(cur.right)
 
-            
+# Delete node
+# Pick delete node and pick last node
+# Swap 2 nodes
+# Delete last node
+
+def deleteNode(root, value):
+    if not root:
+        return
+    
+    deleteNode = None
+    cur = None
+    q = Queue()
+    q.put(root)
+
+    while not q.empty():
+        cur = q.get()
+        if cur.value = value:
+            deleteNode = cur
+        if cur.left:
+            q.put(cur.left)
+        if cur.right:
+            q.put(cur.right)
+    
+    if deleteNode:
+        temp = cur.value
+        deleteLastNode(root, cur)
+        deleteNode.value = temp
+    
+def deletLastNode(root, node):
+    q = Queue()
+    q.put(root)
+
+    while not q.empty():
+        cur = q.get()
+        if cur is node:
+            cur = None
+            return
+
+        if cur.right:
+            if cur.right is node:
+                cur.right = None
+                return
+            else:
+                q.put(cur.right)
         
+        if cur.left:
+            if cur.left is node:
+                cur.left = None
+                return
+            else:
+                q.put(cur.left)
     
 
 arr = [1, 2, 3, 4, 5, 6, 6, 6, 6]
 # root = constructBinaryTree(arr, 0, len(arr))
 # traverse(root)
 
-root = buildTreeIter(arr)
-traverse(root)
+# root = buildTreeIter(arr)
+# traverse(root)
+
+node1 = Node(1)
+node2 = Node(2)
+print(node1 is node1)
