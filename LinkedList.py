@@ -24,7 +24,6 @@ class LinkedList:
             cur.next = prev
             prev = cur
             cur = temp
-        
         self.head = prev
         
     def search(self, value):
@@ -116,12 +115,12 @@ ll.addNode(1)
 ll.addNode(2)
 ll.addNode(3)
 ll.addNode(0)
-ll.updateNthNode(12, 0)
+# ll.updateNthNode(12, 0)
+ll.reverse()
 # ll.delete(210)
 ll.print()
 # print()
 # print(ll.length())
-# ll.reverse()
 # print()
 # ll.print()
 # ll.search(9)        
