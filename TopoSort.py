@@ -3,7 +3,6 @@
 #     for v in graph[u]:
 #         if not visited[v]:
 #             recursiveDfs[v]
-    
 #     resTopo.append(u)
 
 # def topoSort():
@@ -28,8 +27,8 @@ def main():
     # print(visited)
     def recursiveDfs(u):
         visited[u] = True
+        print(u)
         for v in graph[u]:
-            print('vvv',v)
             if not visited[v]:
                 recursiveDfs(v)
         topoSort.append(u)

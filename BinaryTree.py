@@ -15,55 +15,47 @@ def constructBinaryTree(arr, i, n):
         
     return root
 
-def inorderTraverse(root):
-    if root:
-        traverse(root.left)
-        print(root.value, end=" ")
-        traverse(root.right)
 
 def inorderTraverse(root):
     if root:
-        traverse(root.left)
+        inorderTraverse(root.left)
         print(root.value, end=" ")
-        traverse(root.right)
+        inorderTraverse(root.right)
     
 def buildTreeIter(arr):
     root = Node(arr[0])
-
+    
     q = Queue()
     q.put(root)
     i = 1
-    
     while i < len(arr):
         node = q.get()
-        node.left = Node(arr[i])
-        i += 1
-        q.put(node.left)
+        if i < len(arr):
+            node.left = Node(arr[i])
+            i += 1
+            q.put(node.left)
+        if i < len(arr):
+            node.right = Node(arr[i])
+            i += 1
+            q.put(node.right)
 
-        node.right = Node(arr[i])
-        i += 1
-        q.put(node.right)
-    
     return root
-
 def insertNode(root, value):
     q = Queue()
     q.put(root)
-    
     while not q.empty():
-        cur = q.get()
+        node = q.get()
+        if not node.left:
+            node.left = Node(value)
+            break
+        else:
+            q.put(node.left)
         
-        if not cur.left:
-            cur.left = Node(value)
+        if not node.right:
+            node.right = Node(value)
             break
         else:
-            q.put(cur.left)
-
-        if not cur.right:
-            cur.right = Node(value)
-            break
-        else:
-            q.put(cur.right)
+            q.put(Node.right)
 
 # Delete node
 # Pick delete node and pick last node
@@ -71,60 +63,49 @@ def insertNode(root, value):
 # Delete last node
 
 def deleteNode(root, value):
-    if not root:
-        return
-    
-    deleteNode = None
-    cur = None
     q = Queue()
     q.put(root)
 
+    deleteNode = None
+    cur = None
+    
     while not q.empty():
         cur = q.get()
-        if cur.value = value:
+        if cur.value == value:
             deleteNode = cur
         if cur.left:
             q.put(cur.left)
         if cur.right:
             q.put(cur.right)
     
-    if deleteNode:
-        temp = cur.value
-        deleteLastNode(root, cur)
-        deleteNode.value = temp
-    
+    deleteNode.value = cur.value
+    deletLastNode(cur)
+     
 def deletLastNode(root, node):
     q = Queue()
     q.put(root)
-
+    
     while not q.empty():
         cur = q.get()
         if cur is node:
             cur = None
             return
-
-        if cur.right:
-            if cur.right is node:
-                cur.right = None
-                return
-            else:
-                q.put(cur.right)
-        
         if cur.left:
             if cur.left is node:
                 cur.left = None
                 return
             else:
                 q.put(cur.left)
+        
+        if cur.right:
+            if cur.right is node:
+                cur.right = None
+                return
+            else:
+                q.put(cur.right)
+    
     
 
-arr = [1, 2, 3, 4, 5, 6, 6, 6, 6]
-# root = constructBinaryTree(arr, 0, len(arr))
-# traverse(root)
-
-# root = buildTreeIter(arr)
-# traverse(root)
-
-node1 = Node(1)
-node2 = Node(2)
-print(node1 is node1)
+arr = [2, 5, 1, 7, 10, 3, 4]
+root = buildTreeIter(arr)
+inorderTraverse(root)

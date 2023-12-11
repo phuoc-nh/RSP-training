@@ -4,21 +4,21 @@ visited = [False for i in range(MAX)]
 path = [0 for i in range(MAX)]
 
 def DFS(s):
-    for i in range(V):
+    for i in range(MAX):
         visited[i] = False
-        path[i] = -1
-    
-    stack = []
-    stack.append(s)
+        path[i] = -1 
+        
+    s = []
+    s.append(s)
     visited[s] = True
     
-    while len(stack):
-        u = stack.pop()
+    while len(s):
+        u = s.pop()
         for v in graph[u]:
             if not visited[v]:
                 visited[v] = True
                 path[v] = u
-                stack.append(v)
+                s.append(v)
 
 def recursiveDFS(s):
     for v in graph[s]:
