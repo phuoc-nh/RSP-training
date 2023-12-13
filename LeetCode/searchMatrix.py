@@ -40,8 +40,6 @@ def searchMatrix(matrix, target):
     col = 0
     
     while 0 <= col <= maxCol and 0 <= row <= maxRow:
-        print(row)
-        print(col)
         if matrix[row][col] == target:
             return True
         elif matrix[row][col] > target:
