@@ -104,6 +104,52 @@ class LinkedList:
         
         return len
     
+    def isPalindrome(self):
+        
+        s = []
+        cur = self.head
+        while cur:
+            s.append(cur)
+            cur = cur.next
+        i = 0
+        j = len(s) - 1
+        while i <= j:
+            if s[i].value == s[j].value:
+                i += 1
+                j -= 1
+            else:
+                return False
+        return True    
+    
+    def enfOfFirstHalf(self):
+        slow = self.head
+        fast = self.head
+        
+        while fast.next and fast.next.next:
+            fast = fast.next.next
+            slow = slow.next        
+
+
+        return slow # end of first half node
+        # need to return slow.next to start second half
+        
+    
+    def isPalindrome(self):
+        endOfFirstHalf  = self.end_of_first_half()
+        seconHalf = end_of_first_half.next
+
+        reverseSecondHalf = self.reverse(seconHalf)
+        cur = self.head
+        
+        while reverseSecondHalf and cur:
+            if cur.value == reverseSecondHalf.value:
+                cur = cur.next
+                reverseSecondHalf = reverseSecondHalf.next
+            else:
+                return False
+        
+        return True
+    
     def print(self):
         cur = self.head
         while cur:
@@ -114,11 +160,12 @@ ll = LinkedList()
 ll.addNode(1)
 ll.addNode(2)
 ll.addNode(3)
-ll.addNode(0)
+ll.addNode(2)
+ll.addNode(1)
+ll.enfOfFirstHalf()
 # ll.updateNthNode(12, 0)
-ll.reverse()
+# ll.reverse()
 # ll.delete(210)
-ll.print()
 # print()
 # print(ll.length())
 # print()
