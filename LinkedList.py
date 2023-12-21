@@ -6,6 +6,7 @@ class Node:
 class LinkedList:
     def __init__(self):
         self.head = None
+        self.
         
     def addNode(self, value):
         cur = self.head
@@ -149,6 +150,8 @@ class LinkedList:
                 return False
         
         return True
+    
+    def mergeTwoLists()
     
     def print(self):
         cur = self.head
