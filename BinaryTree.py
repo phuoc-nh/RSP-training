@@ -104,8 +104,20 @@ def deletLastNode(root, node):
             else:
                 q.put(cur.right)
     
-    
+def goodNodes(root):
+    res = 0
+    def dfs(root, curMax):
+        if not root:
+            return None
+        if root.value >= curMax:
+            curMax = root.value
+            res += 1
+        dfs(root.left, curMax)
+        dfs(root.right, curMax)    
 
-arr = [2, 5, 1, 7, 10, 3, 4]
+    dfs(root, root.value)
+    print(res)
+    return res
+arr = [3,1,4,3,null,1,5]
 root = buildTreeIter(arr)
-inorderTraverse(root)
+print(root)
