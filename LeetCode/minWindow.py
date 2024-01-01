@@ -1,42 +1,30 @@
 from collections import Counter
 
 def minWindow(s, t):
-    counter_t = Counter(t)
-    map_s = {}
-    i = 0
-    j = 0
-    res = []
-    
-    def checkMatch(m_s, m_t):
-        for key in m_t.keys():
-            if key not in m_s:
-                return False
+    counterT = Counter(t)
+    window = {}
+    l = 0
+    need = len(counterT.keys())
+    have = 0
+    res, resLen = [-1,-1] , float('infinity')
+
+    for r in range(len(s)):
+        window[s[r]] = window.get(s[r], 0) + 1
+        if s[r] in counterT and window[s[r]] == counterT[s[r]]:
+            have += 1
             
-            if m_t[key] > m_s[key]:
-                return False
-        
-        return True
-
-    while i < len(s) and j < len(s):
-        map_s[s[j]] = map_s.get(s[j], 0) + 1
-        # print(i,j, map_s)
-        while checkMatch(map_s, counter_t):
-            res.append(s[i:j+1])
-            map_s[s[i]] = map_s.get(s[i], 0) - 1
-            if map_s[s[i]] == 0:
-                del map_s[s[i]]
-            # print(map_s)
-            i += 1
-        
-        j += 1
-    
+        while have == need:
+            if (r - l + 1) < resLen:
+                res = [l,r]
+                resLen = (r-l+1)
+            window[s[l]] -= 1
+            if s[l] in counterT and window[s[l]] < counterT[s[l]]:
+                have -= 1
+            l += 1
+            
     # print(res)
-    # print(min(res, key=len))
-    if len(min) == 0:
-        return ""
-    
-    return min(res, key=len)
-
+    l, r = res
+    return s[l:r+1] if resLen != float('infinity') else ""
 
     #0123456789 10 11 12
 # s = "ADOBECODEB A  N  C"
