@@ -1,1 +1,1 @@
-intervals.sort(key=lambda x: (x[0], x[1]))
+Do leetcode, practice mock interviews
