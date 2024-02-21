@@ -85,5 +85,24 @@ class HelloWorld {
             Arrays.fill(arr, 1);
         }
 
+        // Convert int list to string list
+        var intList = new int[]{1, 2};
+
+        List<String> stringList = intList.
+
+
+
+    }
+
+    public String largestNumber(int[] nums) {
+        List<String> stringList = new ArrayList<>(); // List dynamic size, usually hold Object like String, Integer .... Slow acc
+        String[] s = new String[]{}; // Fixed size, hold primitive and Object, Direct faster access
+
+        for (int i = 0; i < nums.length;i++) {
+            s[i] = String.valueOf((nums[i]));
+        }
+
+        Arrays.sort(s, (a, b) -> (b+a).compareTo(a+b));
+        return String.join("", s);
     }
 }
