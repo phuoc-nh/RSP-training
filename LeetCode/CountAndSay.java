@@ -35,7 +35,7 @@ public class CountAndSay {
 //            System.out.println(">>>> =================== " + res[i]);
         }
 
-//        System.out.println(res[n]);
+        System.out.println(res);
         return res[n];
     }
 }
