@@ -1,5 +1,3 @@
-package LeetCode;
-
 public class CountAndSay {
     public static void main(String[] args) {
         solution(4);

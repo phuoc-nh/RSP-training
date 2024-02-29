@@ -1,5 +1,3 @@
-package LeetCode;
-
 /**
  * rangeBitwiseAnd
  */
