@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 import java.util.Queue;
   
-class Solution {
+class Solution2 {
     public class TreeNode {
         int val;
         TreeNode left;
