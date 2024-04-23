@@ -1,35 +1,39 @@
+from queue import Queue
+
 def numIslands(grid):
     ROWS = len(grid)
     COLS = len(grid[0])
-    result = 0
     
-    def dfs(i,j):
-        if i < 0 or j < 0 or i >= ROWS or j >= COLS or grid[i][j] != '1':
-            return
-        
+    res = 0
+    
+    def bfs(i, j):
+        q = Queue()
+        q.put((i, j))
         grid[i][j] = 0
-        
-        dfs(i + 1, j)
-        dfs(i - 1, j)
-        dfs(i, j + 1)
-        dfs(i, j - 1)
-    
+        while not q.empty():
+            r, c = q.get()   
+            for dr, dc in [(1,0), (0,1), (-1, 0), (0,-1)]:
+                row = dr + r
+                col = dc + c
+                if 0 <= row < ROWS and 0 <= col < COLS and grid[row][col] == '1':
+                    q.put((row, col))
+                    grid[row][col] = 0
+                    
     for i in range(ROWS):
         for j in range(COLS):
             if grid[i][j] == '1':
-                result += 1
-                dfs(i, j)
-
-    # print(result)
-
-    return result
+                bfs(i, j)
+                res += 1
+                
+    print(res)
+    return res
 
     
 grid = [
+  ["1","1","1","1","0"],
+  ["1","1","0","1","0"],
   ["1","1","0","0","0"],
-  ["1","1","0","0","0"],
-  ["0","0","1","0","0"],
-  ["0","0","0","1","1"]
+  ["0","0","0","0","0"]
 ]
 
 numIslands(grid)
