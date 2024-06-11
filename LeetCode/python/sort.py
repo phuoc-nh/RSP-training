@@ -4,13 +4,9 @@ def bubbleSort(arr):
             if arr[j] > arr[j+1]:
                 arr[j], arr[j+1] = arr[j+1], arr[j]
     
-    print(arr)
 arr = [5,2,1,3,9,0,4,5,6]
 
-# bubbleSort(arr)
-
 def selectionSort(arr):
-    
     for i in range(len(arr)):
         kmin = i
         for j in range(i, len(arr)):
@@ -21,9 +17,6 @@ def selectionSort(arr):
             arr[kmin], arr[i] = arr[i], arr[kmin]
             
     print(arr)
-    
-
-# selectionSort(arr)
 
 def insertSort(arr):
     for i in range(len(arr)):
@@ -33,7 +26,38 @@ def insertSort(arr):
             k -= 1
             
     print(arr)
+class Employee:
+        
+    def __init__(self, employee_id):
+        self.employee_id = employee_id
+
+    def __repr__(self):
+        return "Employee('{0}', )".format(self.employee_id)
     
-insertSort(arr)
-            
     
+    def __str__(self) -> str:
+        return 'string form'
+employeeObj1 = Employee("100001")
+result = repr(employeeObj1)
+print(result)
+print(employeeObj1)
+
+try:
+    mark = int('x')
+except ValueError as e:
+    raise ValueError("{0} mark is invalid".format())
+
+outputFormat = '{0:<10}{1:10}{2:10}'
+with open('./studentList.csv') as studentList:
+    # for line in studentList:
+    #     print(line.rstrip())
+    print(outputFormat.format('Student Number', 'First Name', 'Last Name'))
+    while True:
+        studentNumber = studentList.readline().strip()
+        if not studentNumber:
+            break
+        print(studentNumber)
+        name = studentList.readline().strip()
+        last = studentList.readline().strip()
+        
+        print(outputFormat.format(studentNumber, name, last))
