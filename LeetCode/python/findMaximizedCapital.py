@@ -3,25 +3,22 @@ from queue import PriorityQueue
 def findMaximizedCapital(k, w, profits, capital):
     pq = PriorityQueue()
     maxPq = PriorityQueue()
-
-    for i in range(len(capital)):
+    for i in range(len(profits)):
         pq.put((capital[i], profits[i]))
-    res = w
-    for i in range(k):
-        print('>>',pq.queue[0][0])
+    for _ in range(k):
         while not pq.empty() and w >= pq.queue[0][0]:
-            print(w, pq.queue[0][0])
-            _, pro = pq.get()
-            maxPq.put(-pro)
-        
-        temp = -maxPq.get() if not maxPq.empty() else 0
-        res += temp  
-        w += temp
-        
-    return res
+            top = pq.get()
+            maxPq.put(-top[1])
+        maxProfit = maxPq.get() * -1 if not maxPq.empty() else 0
+        w += maxProfit
+    print('w', w)
+    return w
+    
+    
+    
 
-k = 1
-w = 2
+k = 3
+w = 0
 profits = [1,2,3]
-capital = [1,1,2]
+capital = [0,1,2]
 findMaximizedCapital(k, w, profits, capital)
