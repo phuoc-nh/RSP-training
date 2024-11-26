@@ -14,10 +14,15 @@ public class Main {
 //
 //		System.out.println(res);
 
-		int[] nums = {1,2,2,3,3,3};
-		int k = 2;
+//		int[] nums = {1,2,2,3,3,3};
+//		int k = 2;
+//
+//		var res = topKFrequent(nums, k);
 
-		var res = topKFrequent(nums, k);
+		var strs = Arrays.asList("we","say",":","yes","!@#$%^&*()");
+		var code = encode(strs);
+
+		var dec = decode(code);
 	}
 
 	static public boolean isAnagram(String s, String t) {
@@ -139,4 +144,41 @@ public class Main {
 
 		return res;
  	}
+
+	static public String encode(List<String> strs) {
+		StringBuilder res = new StringBuilder();
+		for (String s: strs) {
+			res.append(s.length());
+			res.append("#");
+			res.append(s);
+		}
+
+
+		return res.toString();
+	}
+
+	static  List<String> decode(String str) {
+		List<String> res = new ArrayList<>();
+		var i = 0;
+		while (i < str.length()) {
+			var j = i;
+			while (str.charAt(j) != '#') {
+				j++;
+			}
+			var range = str.substring(i, j);
+			var nextStop = j+1 + Integer.parseInt(range);
+			StringBuilder piece = new StringBuilder();
+			i = j + 1;
+			for (int k = j+1; k < nextStop; k++) {
+				piece.append(str.charAt(k));
+				i++;
+			}
+
+			res.add(piece.toString());
+		}
+
+		System.out.println(res);
+		return  res;
+	}
+
 }
