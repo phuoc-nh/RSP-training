@@ -19,10 +19,16 @@ public class Main {
 //
 //		var res = topKFrequent(nums, k);
 
-		var strs = Arrays.asList("we","say",":","yes","!@#$%^&*()");
-		var code = encode(strs);
+//		var strs = Arrays.asList("we","say",":","yes","!@#$%^&*()");
+//		var code = encode(strs);
+//
+//		var dec = decode(code);
 
-		var dec = decode(code);
+		var nums = new int[] {-1,0,1,2,3};
+		var res = productExceptSelf(nums);
+
+
+
 	}
 
 	static public boolean isAnagram(String s, String t) {
@@ -179,6 +185,50 @@ public class Main {
 
 		System.out.println(res);
 		return  res;
+	}
+
+	static public int[] productExceptSelf(int[] nums) {
+
+
+		var len = nums.length;
+
+		if (len == 1) {
+			return nums;
+		}
+
+		var prefix = new int[len];
+		var suffix = new int[len];
+
+		prefix[0] = nums[0];
+		suffix[len-1] = nums[len-1];
+
+//		System.out.println(Arrays.toString(nums));
+
+		for (int i = 1; i < len; i++) {
+			prefix[i] = nums[i] * prefix[i-1];
+		}
+
+		for (int i = len-2; i > -1; i--) {
+			suffix[i] = nums[i] * suffix[i+1];
+		}
+
+//		System.out.println(">>>" + Arrays.toString(prefix));
+//		System.out.println(">>>" + Arrays.toString(suffix));
+
+		var res = new int[len];
+
+		res[0] = suffix[1];
+		res[len-1] = prefix[len-2];
+
+		for (int i = 1; i < len -1; i++) {
+			res[i] = prefix[i-1] * suffix[i+1];
+		}
+
+//		System.out.printf("res" + Arrays.toString(res));
+
+
+		return res;
+
 	}
 
 }
