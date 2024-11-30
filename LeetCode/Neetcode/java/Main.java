@@ -26,24 +26,23 @@ public class Main {
 
 //		var nums = new int[] {-1,0,1,2,3};
 //		var res = productExceptSelf(nums);
+//		char[][] sudoku = new char[][]{
+//				{'5','3','.','.','7','.','.','.','.'}
+//				,{'6','.','.','1','9','5','.','.','.'}
+//				,{'.','9','8','.','.','.','.','6','.'}
+//				,{'8','.','.','.','6','.','.','.','3'}
+//				,{'4','.','.','8','.','3','.','.','1'}
+//				,{'7','.','.','.','2','.','.','.','6'}
+//				,{'.','6','.','.','.','.','2','8','.'}
+//				,{'.','.','.','4','1','9','.','.','5'}
+//				,{'.','.','.','.','8','.','.','7','9'}
+//		};
+//		var res = isValidSudoku(sudoku);
+//		System.out.println(">>> res " + res);
 
+		int[] nums = new int[] {0,3,7,2,5,8,4,6,0,1};
 
-		char[][] sudoku = new char[][]{
-				{'5','3','.','.','7','.','.','.','.'}
-				,{'6','.','.','1','9','5','.','.','.'}
-				,{'.','9','8','.','.','.','.','6','.'}
-				,{'8','.','.','.','6','.','.','.','3'}
-				,{'4','.','.','8','.','3','.','.','1'}
-				,{'7','.','.','.','2','.','.','.','6'}
-				,{'.','6','.','.','.','.','2','8','.'}
-				,{'.','.','.','4','1','9','.','.','5'}
-				,{'.','.','.','.','8','.','.','7','9'}
-		};
-
-		var res = isValidSudoku(sudoku);
-		System.out.println(">>> res " + res);
-
-
+		longestConsecutive(nums);
 	}
 
 	static public boolean isAnagram(String s, String t) {
@@ -294,6 +293,33 @@ public class Main {
 		}
 
 		return true;
+	}
+
+	static public int longestConsecutive(int[] nums) {
+		Set<Integer> set = new HashSet<>();
+
+		for (int n: nums) {
+			set.add(n);
+		}
+
+		int res = 0;
+
+		for (int s: set) {
+			if (!set.contains(s-1)) {
+				int temp = s;
+				int tres = 0;
+				while (set.contains(temp)) {
+					tres++;
+					temp++;
+				}
+
+				res = Math.max(res, tres);
+			}
+		}
+
+		System.out.println(">?>" + res);
+
+		return res;
 	}
 
 }
