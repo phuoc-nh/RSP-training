@@ -1,3 +1,4 @@
+import java.sql.Array;
 import java.util.*;
 
 public class Main {
@@ -40,9 +41,37 @@ public class Main {
 //		var res = isValidSudoku(sudoku);
 //		System.out.println(">>> res " + res);
 
-		int[] nums = new int[] {0,3,7,2,5,8,4,6,0,1};
+//		int[] nums = new int[] {0,3,7,2,5,8,4,6,0,1};
+//
+//		longestConsecutive(nums);
 
-		longestConsecutive(nums);
+//		int[] nums = new int[] {
+//				-1, 0
+//		};
+//		int target= -1;
+//		var res = twoSum2(nums, target);
+
+//		int[] nums = new int[] {
+////				-1,0,1,2,-1,-4
+////				1,-1,-1,0,
+////				0,0,0
+////				0,1,1
+//				-2,0,0,2,2
+//		};
+////[1,-1,-1,0]
+//		var res = threeSum(nums);
+//
+//		System.out.println("> res " + res);
+
+
+		int[] nums = new int[] {
+				-2,-1,-1,1,1,2,2
+		};
+		int target = 0;
+		var res = fourSum(nums, target);
+		System.out.println(">> res " + res);
+
+
 	}
 
 	static public boolean isAnagram(String s, String t) {
@@ -241,6 +270,8 @@ public class Main {
 //		System.out.printf("res" + Arrays.toString(res));
 
 
+
+
 		return res;
 
 	}
@@ -322,4 +353,145 @@ public class Main {
 		return res;
 	}
 
+	static public int[] twoSum2(int[] numbers, int target) {
+		int l = 0;
+		int r = numbers.length - 1;
+
+		while (l < r) {
+			if (numbers[l] + numbers[r] == target) {
+				return new int[] {l+1, r+1};
+			} else if (numbers[l] + numbers[r] > target) {
+				r--;
+			} else {
+				l++;
+			}
+		}
+
+		return new int[]{};
+	}
+
+	static public List<List<Integer>> threeSum(int[] nums) {
+		Arrays.sort(nums);
+		int len = nums.length;
+		List<List<Integer>> res = new ArrayList<>();
+		System.out.println(">>>" + Arrays.toString(nums));
+
+		for (int i = 0; i < len; i++) {
+			int l = i+1;
+			int r = len - 1;
+
+			if (i > 0 && nums[i] == nums[i-1]) {
+				continue;
+			}
+
+			while (l < r) {
+				if (nums[i] + nums[l] + nums[r] == 0) {
+					var t = Arrays.asList(nums[i], nums[l], nums[r]);
+					res.add(t);
+					l++;
+					r--;
+
+					while (nums[l] == nums[l-1]) {
+						l++;
+					}
+					while ( nums[r] == nums[r+1]) {
+						r--;
+					}
+
+
+				} else if (nums[i] + nums[l] + nums[r] > 0) {
+					r--;
+				} else {
+					l++;
+				}
+			}
+		}
+
+		return res;
+
+	}
+
+	static public int threeSumClosest(int[] nums, int target) {
+
+		Arrays.sort(nums);
+
+		var outerDiff = Integer.MAX_VALUE;
+		var resSum = 0;
+
+		for (int i = 0; i < nums.length; i++) {
+
+			if (i > 0 && nums[i] == nums[i-1]) {
+				continue;
+			}
+
+			var l = i+1;
+			var r = nums.length - 1;
+
+			while (l < r) {
+				var sum = nums[i] + nums[l] + nums[r];
+				var diff = Math.abs(sum - target);
+				if (diff < outerDiff) {
+					outerDiff = diff;
+					resSum = sum;
+				}
+
+				if (sum > target) {
+					r--;
+				} else if (sum < target) {
+					l--;
+				} else {
+					return 0;
+				}
+			}
+		}
+
+
+		return resSum;
+
+	}
+
+	static public List<List<Integer>> fourSum(int[] nums, int target) {
+		List<List<Integer>> res = new ArrayList<>();
+		Arrays.sort(nums);
+		System.out.println(">>>" + Arrays.toString(nums));
+
+		for (int i = 0; i < nums.length; i++) {
+			if (i > 1 && nums[i] == nums[i-1]) {
+				continue;
+			}
+			for (int j = i+1; j < nums.length; j++) {
+
+				if (j > i+1 && nums[j] == nums[j-1]) {
+					continue;
+				}
+
+				var l = j + 1;
+				var r = nums.length - 1;
+
+				while (l < r) {
+					if (nums[i] + nums[j] + nums[l] + nums[r] == target) {
+						var t = Arrays.asList(nums[i] , nums[j] , nums[l] , nums[r]);
+						res.add(t);
+						r--;
+						l++;
+
+						while (r > 0 && nums[r] == nums[r+1]) {
+							r--;
+						}
+						while (l < nums.length && nums[l] == nums[l-1]) {
+							l++;
+						}
+					} else if (nums[i] + nums[j] + nums[l] + nums[r] > target) {
+						r--;
+					} else {
+						l++;
+					}
+
+
+				}
+			}
+		}
+
+		return  res;
+	}
 }
