@@ -64,12 +64,27 @@ public class Main {
 //		System.out.println("> res " + res);
 
 
-		int[] nums = new int[] {
-				-2,-1,-1,1,1,2,2
+//		int[] nums = new int[] {
+//				-2,-1,-1,1,	1,2,2,0,4,5
+//		};
+//		int target = 0;
+//		var res = fourSum(nums, target);
+//		System.out.println(">> res " + res);
+
+
+//		mergeSort(nums);
+
+
+		int[] nums1 = new int[] {
+				0
 		};
-		int target = 0;
-		var res = fourSum(nums, target);
-		System.out.println(">> res " + res);
+		int[] nums2 = new int[] {
+			1
+		};
+		int m = 0;
+		int n = 1;
+
+		merge(nums1, m, nums2, n);
 
 
 	}
@@ -494,4 +509,53 @@ public class Main {
 
 		return  res;
 	}
+
+	static public void mergeSort(int[] nums) {
+//		split in half until one element left
+//		Combine 2 sorted array here
+//		return final list
+//		int[] firstHalf = Arrays.copyOfRange(nums, 0, nums.length / 2);
+		int[] firstHalf = Arrays.copyOfRange(nums, 0, nums.length / 2);
+		int[] secondHalf = Arrays.copyOfRange(nums, nums.length / 2, nums.length);
+
+		System.out.println(Arrays.toString(firstHalf));
+		System.out.println(Arrays.toString(secondHalf));
+
+
+	}
+
+	static public void merge(int[] nums1, int m, int[] nums2, int n) {
+		int cur = m + n - 1;
+		int p1 = m - 1;
+		int p2 = n - 1;
+		while (cur >= 0) {
+			if (p1 < 0) {
+				nums1[cur] = nums2[p2];
+				p2--;
+				cur--;
+				continue;
+			}
+
+			if (p2 < 0) {
+				nums1[cur] = nums1[p1];
+				p1--;
+				cur--;
+				continue;
+			}
+
+			if (nums1[p1] >= nums2[p2]) {
+				nums1[cur] = nums1[p1];
+				p1--;
+			} else {
+				nums1[cur] = nums2[p2];
+				p2--;
+			}
+
+			cur--;
+		}
+
+//		System.out.println(">> " + Arrays.toString(nums1));
+	}
+
+
 }
