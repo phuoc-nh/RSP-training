@@ -65,8 +65,17 @@ public class Main {
 
 
 //		int[] nums = new int[] {
-//				-2,-1,-1,1,	1,2,2,0,4,5
+//				-2,-1,-1,1,1,  2,2,0,4,5
 //		};
+//		var left = Arrays.copyOfRange(nums, 0, nums.length / 2);
+//		var right = Arrays.copyOfRange(nums, nums.length / 2, nums.length);
+//
+//		System.out.println(Arrays.toString(left));
+//		System.out.println(Arrays.toString(right));
+
+//		var res = sortArray(nums);
+//		System.out.println(">> res"  + Arrays.toString(res));
+
 //		int target = 0;
 //		var res = fourSum(nums, target);
 //		System.out.println(">> res " + res);
@@ -75,18 +84,32 @@ public class Main {
 //		mergeSort(nums);
 
 
-		int[] nums1 = new int[] {
-				0
-		};
-		int[] nums2 = new int[] {
-			1
-		};
-		int m = 0;
-		int n = 1;
+//		int[] nums1 = new int[] {
+//				0
+//		};
+//		int[] nums2 = new int[] {
+//			1
+//		};
+//		int m = 0;
+//		int n = 1;
+//
+//		merge(nums1, m, nums2, n);
 
-		merge(nums1, m, nums2, n);
+//		String hayStack = "leetcode";
+//		String needle = "leeto";
+//
+//		var res = strStr(hayStack, needle);
+//
+//		System.out.println(">>> " + res);
 
 
+//		int[] nums = new int[] {
+//				0,0,1,1,1,1,2,3,3
+//		};
+//
+//		var r = removeDuplicates2(nums);
+		int num = 1994;
+		var res = intToRoman(num);
 	}
 
 	static public boolean isAnagram(String s, String t) {
@@ -510,18 +533,57 @@ public class Main {
 		return  res;
 	}
 
-	static public void mergeSort(int[] nums) {
-//		split in half until one element left
-//		Combine 2 sorted array here
-//		return final list
-//		int[] firstHalf = Arrays.copyOfRange(nums, 0, nums.length / 2);
-		int[] firstHalf = Arrays.copyOfRange(nums, 0, nums.length / 2);
-		int[] secondHalf = Arrays.copyOfRange(nums, nums.length / 2, nums.length);
+	static public int[] sortArray(int[] nums) {
 
-		System.out.println(Arrays.toString(firstHalf));
-		System.out.println(Arrays.toString(secondHalf));
+		return mergeSort(nums, 0, nums.length - 1);
+	}
 
+	static public int[] mergeSort(int[] arr, int l, int r) {
+		if (l == r) {
+			return arr;
+		}
 
+		var mid = (l + r) / 2;
+
+		mergeSort(arr, l, mid);
+		mergeSort(arr, mid+1, r);
+
+		merge(arr, l, mid, r);
+
+		return arr;
+	};
+
+	static public void merge(int[] arr, int l, int m, int r) {
+		var left = Arrays.copyOfRange(arr, l, m+1);
+		var right = Arrays.copyOfRange(arr, m+1, r+1);
+
+		var j = 0;
+		var k = 0;
+		var i = l;
+
+		while (j < left.length && k < right.length) {
+			if (left[j] <= right[k]) {
+				arr[i] = left[j];
+				j++;
+			} else {
+				arr[i] = right[k];
+				k++;
+			}
+			i++;
+		}
+
+		while (j < left.length) {
+			arr[i] = left[j];
+			j++;
+			i++;
+		}
+
+		while (k < right.length) {
+			arr[i] = right[k];
+			k++;
+			i++;
+		}
+//		if (a == n)
 	}
 
 	static public void merge(int[] nums1, int m, int[] nums2, int n) {
@@ -557,5 +619,99 @@ public class Main {
 //		System.out.println(">> " + Arrays.toString(nums1));
 	}
 
+	static public int strStr(String haystack, String needle) {
+		var lenHay = haystack.length();
+		var lenNeedle = needle.length();
+
+		var diff = lenHay - lenNeedle;
+
+		if (diff < 0) return  -1;
+
+		for (int i = 0; i < diff + 1; i++ ) {
+			var p1 = i;
+			var p2 = 0;
+
+			while (p1 < lenHay && p2 < lenNeedle && haystack.charAt(p1) == needle.charAt(p2)) {
+				p1++;
+				p2++;
+			}
+
+			if (p2 == lenNeedle) return  i;
+		}
+
+		return -1;
+	}
+
+	static public int removeDuplicates(int[] nums) {
+		var count = 1;
+
+		for (int i = 1; i < nums.length; i++) {
+			if (nums[i] == nums[i-1]) {
+				continue;
+			} else {
+				nums[count] = nums[i];
+				count++;
+			}
+		}
+
+//		System.out.println(Arrays.toString(nums));
+//		System.out.println(count);
+		return count;
+	}
+
+	static public int removeDuplicates2(int[] nums) {
+		var count = 1;
+		var p = 1;
+		for (int i = 1; i < nums.length; i++) {
+			if (nums[i] == nums[i-1]) {
+				count++;
+				if (count <= 2) {
+					nums[p] = nums[i];
+					p++;
+				}
+			} else {
+				count = 1;
+				nums[p] = nums[i];
+				p++;
+			}
+
+		}
+//		System.out.println(count);
+//		System.out.println(count);
+//		System.out.printf("p >> " + p);
+//		System.out.printf("p nums  " + Arrays.toString(nums));
+		return p;
+	}
+
+	static public String intToRoman(int num) {
+		List<String> roman = Arrays.asList(
+				"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV","I"
+		);
+		List<Integer> romanInt = Arrays.asList(
+				1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4,1
+		);
+
+		List<Map<String, Integer>> map = new ArrayList<>();
+
+//		map.put()
+		StringBuilder res = new StringBuilder();
+
+		while (num != 0) {
+			for (int i = 0; i < romanInt.toArray().length; i++) {
+				var intPart = num / romanInt.get(i);
+				if (intPart > 0) {
+//					var temp = roman.get(i).repeat(intPart);
+					res.append(roman.get(i).repeat(intPart));
+					num = num - intPart * romanInt.get(i);
+
+				}
+			}
+		}
+
+		System.out.println(res.toString());
+
+		return  res.toString();
+
+	}
 
 }
