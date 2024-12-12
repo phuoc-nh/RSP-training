@@ -1,5 +1,6 @@
 import java.sql.Array;
 import java.util.*;
+import java.util.stream.IntStream;
 
 public class Main {
 	public static void main(String[] args) {
@@ -108,8 +109,25 @@ public class Main {
 //		};
 //
 //		var r = removeDuplicates2(nums);
-		int num = 1994;
-		var res = intToRoman(num);
+//		int num = 1994;
+//		var res = intToRoman(num);
+
+//		int[] citations = new int[] {
+//				1,3,1
+//		};
+//
+//		var res = hIndex(citations);
+//		System.out.println(">> " + res);
+
+
+		var ratings = new int[]{
+				1,2,87,87,87,2,1
+		};
+
+		var res = candy(ratings);
+
+		System.out.println("res " + res);
+
 	}
 
 	static public boolean isAnagram(String s, String t) {
@@ -714,4 +732,45 @@ public class Main {
 
 	}
 
+	static public int hIndex(int[] citations) {
+		int[] paperCount = new int[citations.length+1];
+
+		for (int cit: citations) {
+			paperCount[Math.min(cit, citations.length)]++;
+		}
+		System.out.println(Arrays.toString(paperCount));
+		var s = 0;
+		for (int h = citations.length; h >= 0; h--) {
+			s += paperCount[h];
+			if (s >= h) {
+				return h;
+			}
+		}
+
+		return 0;
+
+	}
+
+	static public int candy(int[] ratings) {
+		var n = ratings.length;
+		int[] res = new int[ratings.length];
+		Arrays.fill(res, 1);
+//		1,2,87,87,87,2,1
+		for (int i = 1; i < n; i++) {
+			if (ratings[i] > ratings[i-1]) {
+				res[i] = res[i-1] + 1;
+			}
+		}
+
+		for (int i = n - 2; i >= 0; i--) {
+			if (ratings[i] > ratings[i+1] && res[i] <= res[i+1]) {
+				res[i] = res[i+1] + 1;
+			}
+ 		}
+
+		System.out.println(">> " + Arrays.toString(res));
+
+		return IntStream.of(res).sum();
+
+	}
 }
