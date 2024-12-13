@@ -120,13 +120,23 @@ public class Main {
 //		System.out.println(">> " + res);
 
 
-		var ratings = new int[]{
-				1,2,87,87,87,2,1
+//		var ratings = new int[]{
+//				1,2,87,87,87,2,1
+//		};
+//
+//		var res = candy(ratings);
+//
+//		System.out.println("res " + res);
+//		String s = "PAYPALISHIRING";
+//		int numRows = 3;
+//
+//		var res = convert(s, numRows);
+
+		String[] words = new String[] {
+				"What","must","be","acknowledgment","shall","be"
 		};
-
-		var res = candy(ratings);
-
-		System.out.println("res " + res);
+		var maxWidth = 16;
+		fullJustify(words, maxWidth);
 
 	}
 
@@ -773,4 +783,84 @@ public class Main {
 		return IntStream.of(res).sum();
 
 	}
+
+	static public String convert(String s, int numRows) {
+		StringBuilder res = new StringBuilder();
+
+		for (int r = 0; r < numRows; r++) {
+			var incr = 2 * numRows - 2;
+			for (int i = r; i < s.length(); i = i + incr) {
+				var inBetween = i + incr - 2 * r;
+
+				res.append(s.charAt(i));
+				if (r > 0 && r < numRows-1 && inBetween < s.length()) {
+					res.append(s.charAt(inBetween));
+				}
+
+
+			}
+		}
+
+		System.out.println("?> " + res.toString());
+		return res.toString();
+	}
+
+	static public List<String> fullJustify(String[] words, int maxWidth) {
+		var curWith = 0;
+		List<String> res = new ArrayList<>();
+		List<String> line = new ArrayList<>();
+
+		var i = 0;
+		while (i < words.length) {
+			if (curWith + line.size() + words[i].length() > maxWidth) {
+				System.out.println(">> line " + line);
+
+				var spaces = maxWidth - curWith;
+				var spaceBetween = spaces / (Math.max(1, line.size() - 1));
+				var remain = spaces % (Math.max(1, line.size() - 1));
+
+				StringBuilder temp = new StringBuilder();
+
+				if (line.size() == 1) {
+					line.set(0, line.get(0) + " ".repeat(maxWidth - line.get(0).length()));
+				}
+
+				for (int j = 1; j < line.size() ; j++) {
+					var buff = 0;
+					if (remain > 0) {
+						buff++;
+						remain--;
+					}
+					line.set(j, " ".repeat(spaceBetween + buff) + line.get(j));
+
+				}
+				res.add(String.join("", line));
+
+
+				curWith = 0;
+				line.clear();
+				continue;
+			}
+
+			curWith += words[i].length();
+			line.add(words[i]);
+			i++;
+		}
+
+		if (!line.isEmpty()) {
+			String temp = String.join(" ", line);
+			var spaceLeft = maxWidth - temp.length();
+
+			temp = temp + " ".repeat(spaceLeft);
+			res.add(temp);
+		}
+
+
+
+		System.out.println(">> " + res);
+		return res;
+	}
 }
+
+//What    must    be
+//What   must   be
