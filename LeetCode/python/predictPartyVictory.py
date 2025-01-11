@@ -3,23 +3,24 @@ from queue import Queue
 def predictPartyVictory(senate):
     direQ = Queue()
     radiantQ = Queue()
-
+    
     for i in range(len(senate)):
-        if senate[i] == 'R':
+        if senate[i] == "D":
+            direQ.put(i)
+        else:
             radiantQ.put(i)
+            
+    while not direQ.empty() and not radiantQ.empty():
+        d = direQ.get()
+        r = radiantQ.get()
+        print(d, r)
+        if d < r:
+            direQ.put(d + len(senate))
         else:
-            direQ.put(i)      
+            radiantQ.put(r + len(senate))
+            
 
-    while direQ.qsize() and radiantQ.qsize():
-        dire = direQ.get()
-        radiant = radiantQ.get()
-        
-        if dire < radiant: # remove radiant, add dire with index n + cur
-            direQ.put(dire + len(senate))
-        else:
-            radiantQ.put(radiant + len(senate))
-        
-    return 'Radiant' if radiantQ.qsize() else 'Dire'
+    return "Dire" if direQ.qsize() else "Radiant"
     
 senate = "RDD"
 print(predictPartyVictory(senate))
