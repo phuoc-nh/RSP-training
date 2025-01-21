@@ -1,32 +1,37 @@
 def gridGame(grid):
-    n = len(grid[0])
-    
-    row1 = grid[0].copy()
-    row2 = grid[1].copy()
+    ROWS = len(grid)
+    COLS = len(grid[0])
     
     
-    
-    for i in range(1, n):
-        row1[i] += row1[i-1]
-        row2[i] += row2[i-1]
-    print(row1)
-    print(row2)
-    pos = 0
-    maxRobot1 = 0 
+    for i in range(1, COLS):
+        grid[0][i] += grid[0][i-1]
+        grid[1][i] += grid[1][i-1]
+        
+        
     res = float('inf')
-    for i in range(n):
+    for i in  range(COLS):
         
-        top = row1[-1] - row1[i]
-        bot = row2[i-1] if i > 0 else 0
+        firstRobotR1 = grid[0][i]
+        firstRobotR2 = (grid[1][-1] - (grid[1][i-1] if i > 0 else 0))
         
-        second = max(top, bot)
-        res = min(res, second)
-    print(res)
+        totalRobot1 = firstRobotR1 + firstRobotR2
+        
+        secondRobotR1 = grid[0][-1] - firstRobotR1
+        secondRobotR2 = grid[1][i-1] if i > 0 else 0
+        
+        
+        
+        # print('Robot1', totalRobot1)   
+        # print('Robot2', secondRobotR1 + secondRobotR2)   
+        res = min(max(secondRobotR2, secondRobotR1), res)
+        
+    # print(grid)
+    
+    # print(res)
     return res
     
-    
-grid = [[20,3,20,17,2,12,15,17,4,15],
-        [20,10,13,14,15,5,2,3,14,3]]
 
+
+grid = [[1,3,1,15],[1,3,3,1]]
 
 gridGame(grid)
