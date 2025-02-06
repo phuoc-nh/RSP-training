@@ -32,4 +32,4 @@ def canFinish(numCourses, prerequisites):
     
 numCourses = 4
 prerequisites = [[1,0],[2,0],[3,1],[3,2]]
-canFinish(numCourses, prerequisites)
+res = canFinish(numCourses, prerequisites)
