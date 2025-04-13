@@ -28,32 +28,42 @@ def numDecodings(s):
 		'26': 'Z',
 	}
     
-    if s[0] == '0':
-        return 0
-    dp = [0 for i in range(len(s))]
-    dp[0] = 1
     
-    for i in range(1, len(s)):
-        if s[i] == '0':
-            if (s[i-1] == '1' or s[i-1] == '2'):
-                if i >= 2:
-                    dp[i] = dp[i-2]
-                else:
-                    dp[i] = 1
-            else:
-                dp[i] = 0
+    dp = [0] * len(s)
+    if s[0] in m:
+        dp[0] = 1
         
-        else:
-            print('>', i)
-            dp[i] += dp[i-1]
-            if i == 1:
-                if s[i-1] + s[i] in m:
-                    dp[i] += dp[i-1]
+    for i in range(1, len(s)):
+        prev = s[i-1:i+1]
+        # print(prev)
+        
+        # valid and prev valid
+        if s[i] in m and prev in m:
+            # print('.as')
+            if i - 2 >= 0:
+                
+                dp[i] = dp[i-1] + dp[i-2]
             else:
-                if s[i-1] + s[i] in m:
-                    dp[i] += dp[i-2]
-    
+                dp[i] = dp[i-1] + 1
+        # valid, prev not valid
+        if s[i] in m and prev not in m:
+            dp[i] = dp[i-1]
+        
+        # not valid, prev not valid
+        if s[i] not in m and prev not in m:
+            dp[i] = 0
+            
+        # not valid, prev valid
+        if s[i] not in m and prev in m:
+            if i - 2 >= 0:
+                dp[i] = dp[i-2]
+            else:
+                dp[i] = 1
+            
+        
     print(dp)
-    return dp[-1]       
+    return dp[-1]
+        
+  
 
-print(numDecodings('1201234'))
+print(numDecodings('1123'))
