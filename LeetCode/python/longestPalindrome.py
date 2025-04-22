@@ -1,38 +1,43 @@
-def longestPalindrome(s):
-    left = 0
-    right = 0
-    maxLen = 0
+def longestPalindrome(s: str) -> str:
+    curMax = 0
+    res = ""
     
-    for i in range(len(s)):
-        l = i
-        r = i + 1
-        while l >= 0 and r < len(s):
-            if s[l] == s[r]:
-                if r - l + 1 > maxLen:
-                    maxLen = r - l + 1
-                    left = l
-                    right = r
-                l -= 1
-                r += 1
-            else:
-                break
+    i = 0
+    
+    while i < len(s):
+        print('i', i)
+        cur = 1
+        left = i - 1
         
-        l = i
-        r = i
-        while l >= 0 and r < len(s):
-            if s[l] == s[r]:
-                if r - l + 1 > maxLen:
-                    maxLen = r - l + 1
-                    left = l
-                    right = r
-                l -= 1
-                r += 1
+        # to find identical adjacent chars
+        while i < len(s)  - 1 and s[i] == s[i+1]:
+            i += 1
+            cur += 1
+            
+        # to expand to left and right side
+        right = i + 1
+        while left >= 0 and right < len(s):
+            if s[left] == s[right]:
+                cur += 2
+                left -= 1
+                right += 1
             else:
                 break
-                
-    # print(right, left)
-    # print(s[left:right+1])
-    return s[left:right+1]
+            
+        if cur > curMax:
+            curMax = cur
+            res = s[left+1:right]
+            
+        i += 1
+            
+    
+    print(res)
+    return res
+        
+    
+    
+    
+    
+s = "cbbbbbbbbbbbbxcaaacx"
 
-s = "cbbd"
 longestPalindrome(s)

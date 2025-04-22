@@ -1,22 +1,26 @@
-def wordBreak(s, wordDit):
-    dp = [False for i in range(len(s)+1)]
+def wordBreak(s: str, wordDict) -> bool:
+    dp = [False] * (len(s) + 1)
     dp[0] = True
     
-    for i in range(1, len(s)+1):
-        for word in wordDit:
-            print('segment', s[i - len(word)+1:i+1])
-            print('i', i)
-            print('word', word)
-            if i - len(word) < 0:
+    for i in range(1, len(s) + 1):
+        
+        for w in wordDict:
+            print('diff', i - len(w))
+            if i - len(w) < 0:
                 continue
-            if dp[i - len(word)] and s[i - len(word):i] == word:
+            
+            if dp[i - len(w)] == True and s[i-len(w):i] == w:
                 dp[i] = True
-                # break
-        print('==========')
-    print(dp[len(s)])
-    print(dp)    
-    return dp[len(s)]
+            
+    print(dp)
+    return dp[-1]
+    
+        
 
-s = "applepenapple"
-wordDict = ["apple","pen"]
+# s = "catsandog"
+# wordDict = ["cats","dog","sand","and","cat"]
+
+s = "leetcode"
+wordDict = ["leet","code"]
+
 wordBreak(s, wordDict)
