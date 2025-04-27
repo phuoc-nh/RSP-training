@@ -1,19 +1,22 @@
 def groupAnagrams(strs):
-    res = []
     m = {}
-
+    res = []
+    
     for s in strs:
-        temp = s
-        sortedS = ''.join(sorted(s))
-        print(sortedS)
-        
-        if sortedS in m:
-            m[sortedS].append(temp)
+        lists = list(s)
+        lists.sort()
+        str = "".join(lists)
+        print("")
+        if str in m:
+            m[str].append(s)
         else:
-            m[sortedS] = [temp]            
-
+            m[str] = [s]
+       
+    print(m)
+    
     for k in m:
         res.append(m[k])
+    
     print(res)
     return res
 
