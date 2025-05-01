@@ -1,21 +1,24 @@
-def lengthOfLongestSubstring( s: str) -> int:
-    if not s: return 0
-    res = 1
+def lengthOfLongestSubstring(s: str) -> int:
+    unique = set()
+    res = 0
     l = 0
-    dupMap = {}
     for r in range(len(s)):
-        if s[r] in dupMap:
-            while s[r] in dupMap:
-                del dupMap[s[l]]
-                l += 1
-        else:
-            res = max(r - l + 1, res)
-        dupMap[s[r]] = r
-            
         
+        if s[r] in unique:
+            while s[r] in unique:
+                unique.remove(s[l]) 
+                l += 1
+            
+            unique.add(s[r])
+            res = max(res, r - l + 1)
+                
+        else:
+            unique.add(s[r])
+            res = max(res, r - l + 1)
+            
     print(res)
     return res
     
-    
-s = "dvdf"
+s = "pwwkew"
+
 lengthOfLongestSubstring(s)
