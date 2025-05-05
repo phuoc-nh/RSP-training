@@ -1,26 +1,24 @@
-def minSubArrayLen(target, nums):
+def minSubArrayLen(target: int, nums) -> int:
+    res = 1e9
     l = 0
-    r = 0
-    res = 1_000_000_000
-    curSum = 0
-    while l < len(nums) and r < len(nums):
-        curSum += nums[r]
-        
-        while curSum >= target:
+    cur = 0
+    for r in range(len(nums)):
+        cur += nums[r]
+        # if cur >= target:
+        while cur >= target:
             res = min(res, r - l + 1)
-            # print('left', l)
-            # print('curSum', curSum)
-            curSum -= nums[l]
+            cur -= nums[l]
             l += 1
+                
+        else:
+            continue
         
-        r += 1
-        
-    # print(res)
-    if res == 1_000_000_000:
-        return 0
-    return res
+    
+    return res if res != 1e9 else 0
+    
+    
+target = 11
+nums = [1,1,1,1,1,1,1,1]
 
-target = 4
-nums = [1,4,4]
-print(minSubArrayLen(target, nums))
-            
+res = minSubArrayLen(target, nums)
+print(res)
