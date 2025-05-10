@@ -1,18 +1,28 @@
 def dailyTemperatures(temperatures):
-    s = []
-    res = [0 for i in range(len(temperatures))]
-    for i, temp in enumerate(temperatures):
-        if len(s) == 0:
-            s.append([i, temp])
-        else:
-            print('.>>>', s[-1][1])
-            while len(s) and s[-1][1] < temp:
-                curI, curTemp = s.pop()
-                res[curI] = i - curI
-            s.append([i, temp])
-
-    print(res)
+    res = [0] * len(temperatures)
+    
+    monoStack = []
+    
+    for i in range(len(temperatures)):
+        temp = temperatures[i]
+        if len(monoStack) == 0:
+            monoStack.append((i, temp))
+            continue
+        
+        if temp <= monoStack[-1][1]:
+            monoStack.append((i, temp))
+            continue
+        # days = 1
+        while len(monoStack) > 0 and temp > monoStack[-1][1]:
+            index, _ = monoStack.pop()
+            res[index] = i - index
+            
+        monoStack.append((i, temp))
+        
+    # print(monoStack)
+    # print(res)
+                
     return res
-
-temperatures = [73,74,75,71,69,72,76,73]
+    
+temperatures = [30,60,90]
 dailyTemperatures(temperatures)
