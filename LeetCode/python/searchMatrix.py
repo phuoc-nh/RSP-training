@@ -1,60 +1,40 @@
-def searchMatrix(matrix, target):
-    for i in range(len(matrix)):
-        if binarySearch(matrix[i], target):
-            return True
+
+def searchMatrix(matrix, target: int) -> bool:
+    
+    top = 0
+    bot = len(matrix) - 1
+    
+    while top <= bot:
+        mid = (top + bot) // 2
+        row = matrix[mid]
         
-    return False    
-
-def binarySearch(arr, target):
-    l = 0
-    r = len(arr) - 1
-    # print(arr)
-    while l <= r:
-        mid = (r + l) // 2
-        # print(mid)
-        # print(r, l)
-        if arr[mid] == target:
-            return True
-        elif arr[mid] > target:
-            r = mid - 1
-        else:
-            l = mid + 1
+        if target < row[0]:
+            bot = mid - 1
+        elif target > row[-1]:
+            top = mid + 1
+        elif target >= row[0] and target <= row[-1]:
+            # do binary search here to find the element'
+            l = 0
+            r = len(row) - 1
+            
+            while l <= r:
+                m = (l + r) // 2
+                if row[m] == target:
+                    return True
+                elif row[m] > target:
+                    r = m - 1
+                else:
+                    l = m + 1
+            return False
     
-    return False
-
-# matrix = [
-#     [1,4,7,11,15],
-#     [2,5,8,12,19],
-#     [3,6,9,16,22],
-#     [10,13,14,17,24],
-#     [18,21,23,26,30]
-# ]
-# target = 21
-# print(searchMatrix(matrix, target))
-
-def searchMatrix(matrix, target):
-    maxCol = len(matrix[0]) - 1
-    maxRow = len(matrix) - 1
-
-    row = len(matrix) - 1
-    col = 0
-    
-    while 0 <= col <= maxCol and 0 <= row <= maxRow:
-        if matrix[row][col] == target:
-            return True
-        elif matrix[row][col] > target:
-            row -= 1
-        else:
-            col += 1
     
     return False
     
-matrix = [
-    [1,4,7,11,15],
-    [2,5,8,12,19],
-    [3,6,9,16,22],
-    [10,13,14,17,24],
-    [18,21,23,26,30]
-]
+    
+
+matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]]
 target = 13
-print(searchMatrix(matrix, target))
+
+res = searchMatrix(matrix, target)
+
+print(res)

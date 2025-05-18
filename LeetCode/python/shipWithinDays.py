@@ -1,57 +1,51 @@
 def shipWithinDays(weights, days: int) -> int:
-    res = float('inf')
     
+    def canFinish(weight):
+        
+        if weight < max(weights):
+            return False
+        
+        totalDays  = 1
+        cur = weight
+        i = 0
+        
+        while i < len(weights):
+            cur -= weights[i]
+            
+            if cur < 0:
+                cur = weight
+                totalDays += 1
+            else:
+                i += 1
+                
+        print('totalDay', totalDays)
+        if totalDays > days:
+            return False
+        
+        return True
+    
+    # canFinish(21)
     
     l = 1
     r = 500
-    
-    maxWeight = max(weights)
-    
+    res = 0
     while l <= r:
-        weight = (l + r) // 2
-        # print(l, r)
-        # print('weight', weight)
-        day = 1
-        i = 0
-        curWeights = 0
-        
-        if weight < maxWeight:
-            l = weight + 1
-            continue
-        
-        while i < len(weights):
-            curWeights += weights[i]
-            if curWeights > weight:
-                day += 1
-                curWeights = 0
-            else:
-                i += 1
-        # print(day)
-        # if day == days:
-        #     res = min(res, weight)
-        #     r = weight - 1
-        #     # break
-        if day > days:
-            l = weight + 1
+        m = (l + r ) // 2
+        print('m', m)
+        if canFinish(m):
+            res = m
+            r = m - 1
         else:
-            res = min(res, weight)
-            r = weight - 1
-            
-        # if day == days:
-        #     res = min(res, weight)
-            
-        #     break
-        # if day > days:
-        #     l = weight + 1
-        # else:
-        #     r = weight - 1
-            
-    # print(res)
+            l = m + 1
+        # if m can carry all weight within days
+        # decrease cur weight
+        # else increase weight to reduce day taken
+    print('res', res)
+    
     return res
 
-weights = [3,2,2,4,1,4]
-days = 3
+weights = [1,2,3,4,5,6,7,8,9,10]
 
+days = 5
 shipWithinDays(weights, days)
-    
-    
+# 15
