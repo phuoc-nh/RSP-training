@@ -8,6 +8,7 @@ def lexicographicallySmallestArray(nums, limit: int):
         if not len(groups) or abs(groups[-1][-1] - n) > limit:
             q = deque()
             q.append(n)
+            len(q)
             # q.pp
             groups.append(q)
         else:
@@ -34,3 +35,9 @@ def lexicographicallySmallestArray(nums, limit: int):
 nums = [1,7,6,18,2,1]
 limit = 3
 lexicographicallySmallestArray(nums, limit)
+
+
+# count 1 2
+# count 2 1
+# count 1 4
+# count 4 3
