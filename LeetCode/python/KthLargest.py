@@ -1,18 +1,20 @@
-from queue import PriorityQueue
+import heapq
+class KthLargest:
 
-class KthLargest(object):
-
-    def __init__(self, k, nums):
-        self.pq = PriorityQueue()
-        for num in nums:
-            self.pq.put(num)
-            if self.pq.qsize() > k:
-                self.pq.put()
-
-    def add(self, val):
-        self.pq.put(val)
-        if self.pq.qsize() > k:
-            self.pq.put()
-            
-        return self.pq.queue[0]
+    def __init__(self, k: int, nums):
+        self.heap = nums
+        heapq.heapify(self.heap)
+        while len(self.heap) > k:
+            heapq.heappop(self.heap)
         
+        
+    def add(self, val: int) -> int:
+        heapq.heappush(self.heap, val)
+        heapq.heappop(self.list)
+        
+        return self.heap[0]
+
+
+# Your KthLargest object will be instantiated and called as such:
+obj = KthLargest(k, nums)
+param_1 = obj.add(val)
