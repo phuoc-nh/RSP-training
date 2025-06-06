@@ -1,22 +1,28 @@
 def findKthLargest(nums, k):
     k = len(nums) - k
     def quickSelect(l, r):
-        pivot, p = nums[r], l
-        for i in range(l,r):
+        pivot = nums[r]
+        p = l
+        
+        for i in range(l, r):
             if nums[i] <= pivot:
                 nums[i], nums[p] = nums[p], nums[i]
-                p+=1
-        
+                p += 1
+        # finally move pivot to p pointer
         nums[p], nums[r] = nums[r], nums[p]
         
-        if p > k:
-            return quickSelect(l, p-1)
-        elif p < k:
+        if k == p:
+            return nums[p]      
+        elif k < p:
+            return quickSelect(l, p - 1)
+        else:
             return quickSelect(p+1, r)
-        else: return nums[p]
+    
+    res = quickSelect(0, len(nums) - 1)
+    # print(res)
+    return res
+    
 
-    return quickSelect(0, len(nums)-1)
-
-nums = [3,2,3,1,2,4,5,5,6]
-k = 4
+nums = [3,2,1,5,6,4]
+k = 2
 print(findKthLargest(nums, k))
