@@ -1,28 +1,44 @@
-import random
-import string
+class Solution:
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        # res = []
+        # candidates.sort()
 
-def base62_encode(number: float) -> str:
-    chars = string.digits + string.ascii_lowercase + string.ascii_uppercase
-    base = len(chars)
+        # def dfs(idx, path, cur):
+        #     if cur == target:
+        #         res.append(path.copy())
+        #         return
+        #     for i in range(idx, len(candidates)):
+        #         if i > idx and candidates[i] == candidates[i - 1]:
+        #             continue
+        #         if cur + candidates[i] > target:
+        #             break
 
-    # Convert the float to a large integer
-    number = int(number * 1e12)  # or adjust the multiplier for longer/shorter codes, we call it entropy, the more it is, the longer generation time it takes
-    print(number)
-    if number == 0:
-        return chars[0]
+        #         # path.append(candidates[i])
+        #         dfs(i + 1, path + [candidates[i]], cur + candidates[i])
+        #         # path.pop()
 
-    encoded = ''
-    while number > 0:
-        number, remainder = divmod(number, base)
-        encoded = chars[remainder] + encoded
+        # dfs(0, [], 0)
+        # return res
 
-    return encoded
+        candidates.sort()
+        print(candidates)
+        res = []
+        def dfs(cur, total, i):
+            # if i >= len(candidates):
+            #     return
+            if total == target:
+                res.append(cur.copy())
+            # print(candidates[i])
 
+            for j in range(i, len(candidates)):
+                if total + candidates[j] > target:
+                    continue
+                if j > i and candidates[j] == candidates[j-1]:
+                    continue
+                # cr
+                dfs(cur + [candidates[j]], total + candidates[j], j)
 
-input_url = "https://www.example.com/some/very/long/url"
-random_number = random.random()
-print('random_number', random_number)
-short_code_encoded = base62_encode(random_number)
-short_code = short_code_encoded[:8]
+        dfs([], 0, 0)
+        print(res)
 
-print("Short code:", short_code)
+        return res
