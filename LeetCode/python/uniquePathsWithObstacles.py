@@ -66,11 +66,11 @@ def uniquePathsWithObstacles(obstacleGrid):
             obstacleGrid[i][j] += top + left
             
     
-    for o in obstacleGrid:
-        print(o)
+    # for o in obstacleGrid:
+    #     print(o)
                 
 
-    return obstacleGrid[ROWS-1][COLS-1] if obstacleGrid[ROWS-1][COLS-1]  != 'X' else 0
+    return obstacleGrid[ROWS-1][COLS-1] 
                 
     
 obstacleGrid = [[0,0,0],[0,1,0],[0,0,0]]
