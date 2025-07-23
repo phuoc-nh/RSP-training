@@ -2,7 +2,9 @@ body {
   font-family: sans-serif;
 }
 
-.wrapper {
+/* accordion */
+
+/* .wrapper {
   align-items: center;
   display: flex;
 }
@@ -58,4 +60,15 @@ body {
   font-size: 14px;
   line-height: 1.2em;
   padding: 4px;
+}  */
+
+/* flight-booker */
+
+
+.flight-booker {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 320px;
+  margin: 0 auto
 }

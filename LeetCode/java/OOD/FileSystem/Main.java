@@ -242,84 +242,84 @@ public class Main {
 
 
 
-public class FileSystemDesign {
+// public class FileSystemDesign {
 
-  // ===== Interface =====
-  interface IEntry {
-    String getName();
-    void setName(String name);
-    int getSize();
-    boolean isDirectory();
-  }
+//   // ===== Interface =====
+//   interface IEntry {
+//     String getName();
+//     void setName(String name);
+//     int getSize();
+//     boolean isDirectory();
+//   }
 
-  // ===== Abstract Class =====
-  abstract class Entry implements IEntry {
-    String name;
-  }
+//   // ===== Abstract Class =====
+//   abstract class Entry implements IEntry {
+//     String name;
+//   }
 
-  // ===== File =====
-  class File extends Entry {
-    byte[] content;
+//   // ===== File =====
+//   class File extends Entry {
+//     byte[] content;
 
-    void setContent(byte[] data);
-    byte[] getContent();
-    String getExtension();
-    int getSize();              // content.length
-    boolean isDirectory();      // return false
-  }
+//     void setContent(byte[] data);
+//     byte[] getContent();
+//     String getExtension();
+//     int getSize();              // content.length
+//     boolean isDirectory();      // return false
+//   }
 
-  // ===== Directory =====
-  class Directory extends Entry {
-    List<Entry> entries;
+//   // ===== Directory =====
+//   class Directory extends Entry {
+//     List<Entry> entries;
 
-    void addEntry(Entry e);
-    List<Entry> getEntries();
-    int getSize();              // sum of child sizes
-    boolean isDirectory();      // return true
-  }
+//     void addEntry(Entry e);
+//     List<Entry> getEntries();
+//     int getSize();              // sum of child sizes
+//     boolean isDirectory();      // return true
+//   }
 
-  // ===== Search Parameters =====
-  class SearchParams {
-    String name;
-    String extension;
-    Integer minSize;
-    Integer maxSize;
-  }
+//   // ===== Search Parameters =====
+//   class SearchParams {
+//     String name;
+//     String extension;
+//     Integer minSize;
+//     Integer maxSize;
+//   }
 
-  // ===== Filter Interface =====
-  interface IFilter {
-    boolean isValid(SearchParams params, File file);
-  }
+//   // ===== Filter Interface =====
+//   interface IFilter {
+//     boolean isValid(SearchParams params, File file);
+//   }
 
-  // ===== Concrete Filters =====
-  class NameFilter implements IFilter {
-    boolean isValid(SearchParams params, File file);
-  }
+//   // ===== Concrete Filters =====
+//   class NameFilter implements IFilter {
+//     boolean isValid(SearchParams params, File file);
+//   }
 
-  class ExtensionFilter implements IFilter {
-    boolean isValid(SearchParams params, File file);
-  }
+//   class ExtensionFilter implements IFilter {
+//     boolean isValid(SearchParams params, File file);
+//   }
 
-  class MinSizeFilter implements IFilter {
-    boolean isValid(SearchParams params, File file);
-  }
+//   class MinSizeFilter implements IFilter {
+//     boolean isValid(SearchParams params, File file);
+//   }
 
-  class MaxSizeFilter implements IFilter {
-    boolean isValid(SearchParams params, File file);
-  }
+//   class MaxSizeFilter implements IFilter {
+//     boolean isValid(SearchParams params, File file);
+//   }
 
-  // ===== Filter Aggregator =====
-  class FileFilter {
-    List<IFilter> filters;
+//   // ===== Filter Aggregator =====
+//   class FileFilter {
+//     List<IFilter> filters;
 
-    FileFilter();  // register all filters
-    boolean isValid(SearchParams params, File file);
-  }
+//     FileFilter();  // register all filters
+//     boolean isValid(SearchParams params, File file);
+//   }
 
-  // ===== File Searcher =====
-  class FileSearcher {
-    FileFilter filter;
+//   // ===== File Searcher =====
+//   class FileSearcher {
+//     FileFilter filter;
 
-    List<File> search(Directory root, SearchParams params); // BFS traversal
-  }
-}
+//     List<File> search(Directory root, SearchParams params); // BFS traversal
+//   }
+// }
