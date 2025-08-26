@@ -1,40 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState } from 'react';
 import './App.css'
-import Accordion from './components/accordion'
-import Booker from './components/flight-booker'
-import Sol from './components/sol'
+import ImageCarousel from './components/image-carousel'
 
+const images = [
+  {
+    src: 'https://picsum.photos/id/600/600/400',
+    alt: 'Forest',
+  },
+  {
+    src: 'https://picsum.photos/id/100/600/400',
+    alt: 'Beach',
+  },
+  {
+    src: 'https://picsum.photos/id/200/600/400',
+    alt: 'Yak',
+  },
+  {
+    src: 'https://picsum.photos/id/300/600/400',
+    alt: 'Hay',
+  },
+  {
+    src: 'https://picsum.photos/id/400/600/400',
+    alt: 'Plants',
+  },
+  {
+    src: 'https://picsum.photos/id/500/600/400',
+    alt: 'Building',
+  },
+];
 function App() {
-
+const [message, setMessage] = useState('Image Carousel');
   return (
-    <Booker></Booker>
-    // <Sol></Sol>
-    // <div className="wrapper">
-    //   <Accordion
-    //     sections={[
-    //       {
-    //         value: 'html',
-    //         title: 'HTML',
-    //         contents:
-    //           'The HyperText Markup Language or HTML is the standard markup language for documents designed to be displayed in a web browser.',
-    //       },
-    //       {
-    //         value: 'css',
-    //         title: 'CSS',
-    //         contents:
-    //           'Cascading Style Sheets is a style sheet language used for describing the presentation of a document written in a markup language such as HTML or XML.',
-    //       },
-    //       {
-    //         value: 'javascript',
-    //         title: 'JavaScript',
-    //         contents:
-    //           'JavaScript, often abbreviated as JS, is a programming language that is one of the core technologies of the World Wide Web, alongside HTML and CSS.',
-    //       },
-    //     ]}
-    //   />
-    // </div>
+   <div className='container'>
+      <h1>{message}</h1>
+      <ImageCarousel images={images} />
+    </div>
   )
 }
 
