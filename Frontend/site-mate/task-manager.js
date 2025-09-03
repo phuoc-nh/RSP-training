@@ -138,3 +138,4 @@ const filterByPriority = new FilterByPriority(Priority.HIGH)
 const filters = [filterByStatus]
 
 console.log(manager.getTasks(filters));
+
