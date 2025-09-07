@@ -280,3 +280,4 @@ console.log("Booking created:", booking1);
 // Cancel booking
 manager.cancelBooking(booking1.bookingId);
 console.log("After cancellation:", manager.listBookings());
+

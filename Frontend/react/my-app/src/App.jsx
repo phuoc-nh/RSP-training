@@ -3,6 +3,7 @@ import './App.css'
 import ImageCarousel from './components/image-carousel'
 import DataTable from './components/DataTable';
 import FileExplorer from './components/FileExplorer';
+import TicTacToe from './components/TicTacToe';
 // const images = [
 //   {
 //     src: 'https://picsum.photos/id/600/600/400',
@@ -30,56 +31,56 @@ import FileExplorer from './components/FileExplorer';
 //   },
 // ];
 
-const data = [
-    {
-      id: 1,
-      name: 'README.md',
-    },
-    {
-      id: 2,
-      name: 'Documents',
-      children: [
-        {
-          id: 3,
-          name: 'Word.doc',
-        },
-        {
-          id: 4,
-          name: 'Powerpoint.ppt',
-        },
-      ],
-    },
-    {
-      id: 5,
-      name: 'Downloads',
-      children: [
-        {
-          id: 6,
-          name: 'unnamed.txt',
-        },
-        {
-          id: 7,
-          name: 'Misc',
-          children: [
-            {
-              id: 8,
-              name: 'foo.txt',
-            },
-            {
-              id: 9,
-              name: 'bar.txt',
-            },
-          ],
-        },
-      ],
-  },
-]
+// const data = [
+//     {
+//       id: 1,
+//       name: 'README.md',
+//     },
+//     {
+//       id: 2,
+//       name: 'Documents',
+//       children: [
+//         {
+//           id: 3,
+//           name: 'Word.doc',
+//         },
+//         {
+//           id: 4,
+//           name: 'Powerpoint.ppt',
+//         },
+//       ],
+//     },
+//     {
+//       id: 5,
+//       name: 'Downloads',
+//       children: [
+//         {
+//           id: 6,
+//           name: 'unnamed.txt',
+//         },
+//         {
+//           id: 7,
+//           name: 'Misc',
+//           children: [
+//             {
+//               id: 8,
+//               name: 'foo.txt',
+//             },
+//             {
+//               id: 9,
+//               name: 'bar.txt',
+//             },
+//           ],
+//         },
+//       ],
+//   },
+// ]
 
 function App() {
 const [message, setMessage] = useState('Image Carousel');
   return (
    <div>
-      <FileExplorer data={data} />
+      <TicTacToe />
     </div>
   )
 }
