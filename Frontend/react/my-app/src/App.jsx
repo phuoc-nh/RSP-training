@@ -3,7 +3,8 @@ import './App.css'
 import ImageCarousel from './components/image-carousel'
 import DataTable from './components/DataTable';
 import FileExplorer from './components/FileExplorer';
-import TicTacToe from './components/TicTacToe';
+import TicTacToe from './components/TicTocToe';
+import BarContainer from './components/ProgressBar';
 // const images = [
 //   {
 //     src: 'https://picsum.photos/id/600/600/400',
@@ -80,7 +81,8 @@ function App() {
 const [message, setMessage] = useState('Image Carousel');
   return (
    <div>
-      <TicTacToe />
+      {/* <BarContainer /> */}
+      <TicTacToe n={3} />
     </div>
   )
 }
