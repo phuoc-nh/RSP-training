@@ -5,6 +5,7 @@ import DataTable from './components/DataTable';
 import FileExplorer from './components/FileExplorer';
 import TicTacToe from './components/TicTocToe';
 import BarContainer from './components/ProgressBar';
+import ModalDialog from './components/ModalDialog';
 // const images = [
 //   {
 //     src: 'https://picsum.photos/id/600/600/400',
@@ -78,11 +79,19 @@ import BarContainer from './components/ProgressBar';
 // ]
 
 function App() {
-const [message, setMessage] = useState('Image Carousel');
+  const [open, setOpen] = useState(false)
+
   return (
-   <div>
-      {/* <BarContainer /> */}
-      <TicTacToe n={3} />
+    <div>
+      <button onClick={() => setOpen(!open)}>Open dialog</button>
+      <ModalDialog title={'title'} open={open} setOpen={setOpen}>
+        One morning, when Gregor Samsa woke from troubled
+        dreams, he found himself transformed in his bed into
+        a horrible vermin. He lay on his armour-like back,
+        and if he lifted his head a little he could see his
+        brown belly, slightly domed and divided by arches
+        into stiff sections.
+      </ModalDialog>
     </div>
   )
 }
