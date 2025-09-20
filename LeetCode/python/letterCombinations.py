@@ -25,5 +25,5 @@ def letterCombinations(digits):
     print(res)
     return res
 
-letterCombinations("23")
+letterCombinations("234")
         

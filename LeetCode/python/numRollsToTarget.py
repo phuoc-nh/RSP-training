@@ -1,25 +1,29 @@
 def numRollsToTarget(n, k, target):
-	MOD = 1_000_000_000 + 7
-	cache = {}
+    res = 0
+    cache = {}
+    
+    def dfs(i, cur):
+        nonlocal res
+        if i == n and cur == target:
+            return 1
 
-	def dfs(n, cur):
-		if n == 0:
-			return 1 if cur == 0 else 0
-		if (n, cur) in cache:
-			return cache[(n, cur)]
-		cache[(n, cur)] = 0
-		for i in range(1, k+1):
-			cache[(n, cur)] += dfs(n-1, cur - i) % MOD
+        if (i, cur) in cache:
+            return cache[(i, cur)]
+        
+        total = 0
+        for j in range(1, k + 1):
+            if cur + j <= target:
+                total += dfs(i + 1, cur + j)
+        cache[(i, cur)] = total
+        return total
 
-		return cache[(n, cur)]
-
-	r = dfs(n, target)	
-	print(r)
-	return r
+    result = dfs(0, 0)
+    print(result)
+    return result
 
 
-n = 30
-k = 30
-target = 500
+n = 1
+k = 6
+target = 3
 
 numRollsToTarget(n,k,target)
