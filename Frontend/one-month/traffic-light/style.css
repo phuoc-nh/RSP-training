@@ -1,0 +1,29 @@
+.traffic-light {
+	display: flex;
+	gap: 0.5em;
+	background: gray;
+	padding: 1em;
+	border-radius: 10px;
+	/* justify-content: center; */
+	/* align-items: center; */
+	width: fit-content;
+}
+
+.circle {
+	width: 2em;
+	height: 2em;
+	border-radius: 999px;
+	background: black;
+}
+
+.red-light {
+	background: red;
+}
+
+.yellow-light {
+	background: yellow;
+}
+
+.green-light {
+	background: green;
+}
