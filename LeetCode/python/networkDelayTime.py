@@ -1,39 +1,40 @@
-from collections import deque
 import heapq
+
 def networkDelayTime(times, n: int, k: int):
     adj = [[] for i in range(n+1)]
+
     for u, v, w in times:
-        # if u not in adj:
-        #     adj[u] = []
         adj[u].append((v, w))
-    queue = []
-    queue.append((0, k))    
-    visited = set()
-    res = 0
     
-    while len(queue):
-        w1, u = heapq.heappop(queue)
+    heap = []
+    heap.append((0, k))
+    res = 0
+    heapq.heapify(heap) 
+    visited = set()    
+
+    while len(heap):
+        weight, node = heapq.heappop(heap)
         
-        if u in visited:
+        if node in visited:
             continue
         
-        res = w1
-        visited.add(u)
         
-        for v, w2 in adj[u]:
+        res = max(res, weight)
+        visited.add(node)
+        
+        for v, w in adj[node]:
             if v in visited:
                 continue
             
-            heapq.heappush(queue, (w2 + w1, v))
-            
-    # print('res', res)
-    # print(visited)
+            heapq.heappush(heap, (weight + w, v))
     
     return res if len(visited) == n else -1
-    
-times = [[1,2,1]]
+        
+        
+# ui, vi, wi
+times = [[2,1,1],[2,3,1],[3,4,1]]
+n = 4
+k = 2
 
-n = 2
-k = 1
 
-print(networkDelayTime(times, n, k))
+print('>>>',networkDelayTime(times, n, k))
