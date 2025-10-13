@@ -1,3 +1,5 @@
+
+
 def accountsMerge(accounts):
     # I can notice that
     # build list of Union Find email
@@ -70,63 +72,97 @@ def accountsMerge(accounts):
     # emails in the same account are connected
     # dfs through all the email to get connected paths
     # return the result
-    n = len(accounts)
-    nodeId = 0
-    emailToId = {} # (id, accountName) for building adjacency list
-    idToEmail = [] # for dfs traversing
     
-    for i in range(n):
-        for email in accounts[i][1:]:
-            if email not in emailToId:
-                emailToId[email] = (nodeId, accounts[i][0])
-                idToEmail.append((email, accounts[i][0]))
-                nodeId += 1
-                
-    print(emailToId)
-    print('idToEmail', idToEmail)
-    # build adjacency list, 2 emails in the same account connected
-    adj = [[] for i in range(nodeId)]
     
-    for acc in accounts:
-        acc = acc[1:]
-        for i in range(1, len(acc)):
-            email1 = acc[i]
-            email2 = acc[i-1]
+    
+    emailToId = {}
+    idToEmail = {}
+    idToUser = {}
+    count = 0
+    for emails in accounts:
+        for i in range(1, len(emails)):
+            if emails[i] not in emailToId:
+                emailToId[emails[i]] = count
+                idToEmail[count] = emails[i]
+                idToUser[count] = emails[0]
+                count += 1
             
-            id1 = emailToId[email1][0]
-            id2 = emailToId[email2][0]
             
+    adj = [[] for i in range(count)]
+    
+    
+    for emails in accounts:
+        for i in range(1, len(emails) - 1):
+            id1 = emailToId[emails[i]]
+            id2 = emailToId[emails[i+1]]
             adj[id1].append(id2)
             adj[id2].append(id1)
-            
-    visited = set()
     
-    def dfs(i, path):
-        visited.add(i)
-        path.append(idToEmail[i])
-        for v in adj[i]:
-            if v not in visited:
-                dfs(v, path)
-            
-    print(adj)
-    ret = []
-    for k in emailToId:
-        if k not in visited:
-            path = []
-            id = emailToId[k][0]
-            dfs(id, path)
-            
-            # print(path)
-            temp = []
-            if len(path):
-                for p in path:
-                    temp.append(p[0])
-                # temp = [path[0][1]] + temp
-                print('>>>>', temp)
-                ret.append([path[0][1]] + sorted(temp))
-                
-    print(ret)
-    return  ret   
-accounts = [["Gabe","Gabe0@m.co","Gabe3@m.co","Gabe1@m.co"],["Kevin","Kevin3@m.co","Kevin5@m.co","Kevin0@m.co"],["Ethan","Ethan5@m.co","Ethan4@m.co","Ethan0@m.co"],["Hanzo","Hanzo3@m.co","Hanzo1@m.co","Hanzo0@m.co"],["Fern","Fern5@m.co","Fern1@m.co","Fern0@m.co"]]
 
+    def dfs(i, group):
+        if i in visited:
+            return
+
+        visited.add(i)
+        group.append(i)
+        for nei in adj[i]:
+            dfs(nei, group) 
+
+
+    visited = set()
+    groups = []
+    for i in range(count):
+        if i not in visited:
+            group = []
+            dfs(i, group)
+            # toString = [idToUser[i]]
+            toString = []
+            for id in group:
+                toString.append(idToEmail[id])
+            toString.sort()
+            name = idToUser[i]
+            toString.insert(0, name)
+            groups.append(toString)
+    
+    # print(idToEmail)    
+    # print(idToUser)    
+    # print(groups)    
+    
+    return groups
+    
+    
+    
+accounts = [["John","johnsmith@mail.com","john_newyork@mail.com"],["John","johnsmith@mail.com","john00@mail.com"],["Mary","mary@mail.com"],["John","johnnybravo@mail.com"]]
+
+# [["John","john00@mail.com","john_newyork@mail.com","johnsmith@mail.com"],["Mary","mary@mail.com"],["John","johnnybravo@mail.com"]]
 accountsMerge(accounts)
+
+
+class Solution:
+    def isMatch(self, s: str, p: str) -> bool:
+        cache = {}
+        
+        def dfs(i, j):
+            if (i, j) in cache:
+                return cache[(i, j)]
+            if i >= len(s) and j >= len(p):
+                return True
+            
+            if j >= len(p):
+                return False
+            
+            match = i < len(s) and (s[i] == p[j] or p[j] == '.')
+            
+            if j < len(p) - 1 and p[j+1] == '*':
+                # skip
+                cache[(i, j)] = dfs(i, j + 2) or (match and dfs(i+1, j))
+                return cache[(i, j)]
+                # not skip but has to match
+            
+            if match:
+                cache[(i, j)] = dfs(i+1, j+ 1)
+                return cache[(i, j)]
+            cache[(i, j)] = False
+            return False
+
+        return dfs(0, 0)
