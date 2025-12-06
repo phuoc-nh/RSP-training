@@ -1,64 +1,86 @@
 def buildMatrix(k: int, rowConditions, colConditions):
-    # build row adj list
-    adjRow = [[] for i in range(k+1)]
-    for u, v in rowConditions:
-        adjRow[u].append(v)
-        
-    adjCol = [[] for i in range(k+1)]
-    for u, v in colConditions:
-        adjCol[u].append(v)
-
+    rowAdj = [[] for i in range(k+1)]
+    colAdj = [[] for i in range(k+1)]
     
-    def dfs(src, visited, path, adj, res):
-        if src in path:
-            return False
+    for u, v in rowConditions:
+        rowAdj[u].append(v)
         
-        if src in visited:
+    for u, v in colConditions:
+        colAdj[u].append(v)
+    
+    print(rowAdj)
+    def dfs(cur, visited, path, toposort, adj):
+        if cur in path:
+            return False
+        if cur in visited:
             return True
         
-        visited.add(src)
-        path.add(src)
-        for v in adj[src]:
-            if not dfs(v, visited, path, adj, res):
+        
+
+        visited.add(cur)
+        path.add(cur)
+        
+        for nei in adj[cur]:
+            if not dfs(nei, visited, path, toposort, adj):
                 return False
-        
-        # backtrack visited
-        path.remove(src)
-        res.append(src)
-        
+            
+        path.remove(cur)
+        toposort.append(cur)
         return True
     
+    sortedRows = []
     visited = set()
-    path = set()
-    rowSort = []
-    for i in range(1, k+1):
-        if not dfs(i, visited, path, adjRow, rowSort):
-            return []
     
-    visited = set()
-    path = set()
-    colSort = []
     for i in range(1, k+1):
-        if not dfs(i, visited, path, adjCol, colSort):
+        path = set()
+        if not dfs(i, visited, path, sortedRows, rowAdj):
             return []
-    
-    rowSort =  list(reversed(rowSort))
-    rowValueToIndex = {rowSort[i]: i  for i in range(len(rowSort))}
         
-    colSort =  list(reversed(colSort))
-    colValueToIndex = {colSort[i]: i  for i in range(len(colSort))}
+    sortedRows.reverse()
+    print(sortedRows)
     
-    matrix = [[0] * k for i in range(k)]
-    for i in range(1, k + 1):
-        row = rowValueToIndex[i]
-        col = colValueToIndex[i]    
-        matrix[row][col] = i
+    sortedCols = []
+    visited = set()
     
-    return matrix
+    for i in range(1, k+1):
+        path = set()
+        if not dfs(i, visited, path, sortedCols, colAdj):
+            return []
+        
+    sortedCols.reverse()
+    print(sortedCols)
+    
+    res = [[0] * k for i in range(k) ]
+    valToIdRow = {}
+    for i in range(len(sortedRows)):
+        valToIdRow[sortedRows[i]] = i
+        
+    valToIdCol = {}
+    for i in range(len(sortedCols)):
+        valToIdCol[sortedCols[i]] = i
+    
+    for i in range(1, k+1):
+        x = valToIdRow[i]
+        y = valToIdCol[i]
+        res[x][y] = i
+    
+    return res
 
 k = 3
-rowConditions = [[1,2],[3,2]]
-colConditions = [[2,1],[3,2]]
+rowConditions = [[1,2],[2,3],[3,1],[2,3]]
+colConditions = [[2,1]]
 res = buildMatrix(k, rowConditions, colConditions)
 for x in res:
     print(x)
+# 1 -> 2 -> 3
+# 2, 1, 3
+# or 
+# 2, 3, 1
+
+# 1 --> 2
+#     /
+#    /
+#   3
+
+# 3 --> 2 --> 1
+# 3
